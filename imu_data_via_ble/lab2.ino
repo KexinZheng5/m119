@@ -70,15 +70,24 @@ void loop() {
     while (central.connected()) {
       if (IMU.accelerationAvailable() && IMU.gyroscopeAvailable()) {
         float imuData[3];
+        // read acceleration data and store into buffer
         IMU.readAcceleration(imuData[0], imuData[1], imuData[2]);
         for (int i = 0; i < 3; ++i){
           writeFloat(imuData[i], buffer, i * 4);
+          Serial.print(imuData[i]); // print data to serial monitor (for comparison)
+          Serial.print("\t");
         }
+        // read gyroscope data and store into buffer
         IMU.readGyroscope(imuData[0], imuData[1], imuData[2]);
         for (int i = 0; i < 3; ++i){
           writeFloat(imuData[i], buffer, (i + 3) * 4);
+          Serial.print(imuData[i]); // print data to serial monitor (for comparison)
+          Serial.print("\t");
         }
+        // send data via BLE
         mluCharacteristic.writeValue(buffer, SIZE);
+  
+        Serial.print("\n");
       } 
     }
 
