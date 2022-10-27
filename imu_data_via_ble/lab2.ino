@@ -1,4 +1,4 @@
-// Sends IMU data to another device
+// Sends IMU data to another device via BLE
 // Reference: https://docs.arduino.cc/tutorials/nano-33-iot/bluetooth
 
 #include <ArduinoBLE.h>
